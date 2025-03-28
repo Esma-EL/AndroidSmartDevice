@@ -27,7 +27,6 @@ import fr.isen.elakrimi.androidsmartdevice.R
 import androidx.compose.ui.text.font.FontWeight
 
 
-
 data class BLEDevice(val name: String, val address: String, val rssi: Int)
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,6 +42,7 @@ fun ScanScreen(
 ) {
     val context = LocalContext.current
     val backgroundColor = Color(0xFFFBF6E4) // Background color as defined in the second package
+    val topBarColor = Color(0xFFFFBAEC) // Rose color for TopAppBar, change the hex code as needed
 
     Scaffold(
         topBar = {
@@ -52,7 +52,8 @@ fun ScanScreen(
                     IconButton(onClick = { (context as? android.app.Activity)?.finish() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = topBarColor) // Apply rose color to TopAppBar
             )
         }
     ) { paddingValues ->
@@ -91,36 +92,17 @@ fun ScanScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            if (devices.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 60.dp),
-                    contentAlignment = Alignment.TopCenter
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_start), //
-                            contentDescription = "Bluetooth",
-                            modifier = Modifier.size(64.dp)
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text("Aucun appareil détecté", fontSize = 16.sp, color = Color.Black)
-
-                    }
-                }
-            } else {
-                LazyColumn(
-                    contentPadding = PaddingValues(bottom = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(devices) { device ->
-                        BLEDeviceItem(device) {
-                            onDeviceClick(device)
-                        }
+            LazyColumn(
+                contentPadding = PaddingValues(bottom = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(devices) { device ->
+                    BLEDeviceItem(device) {
+                        onDeviceClick(device)
                     }
                 }
             }
+
         }
     }
 }
@@ -131,7 +113,7 @@ fun BLEDeviceItem(device: BLEDevice, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5)),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFBF6E4)),
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Row(
@@ -140,14 +122,14 @@ fun BLEDeviceItem(device: BLEDevice, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
-                color = Color(0xFFFFBAEC),
+                color = Color(0xFFFBF6E4),
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.size(48.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         text = "${device.rssi}dB",
-                        color = Color.White,
+                        color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 12.sp
                     )

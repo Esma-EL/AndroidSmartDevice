@@ -12,6 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.Image
+import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material3.Icon
+
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,9 +77,7 @@ fun BluetoothControlScreen(
                 Text("Nom : $name", fontSize = 16.sp)
                 Text("Adresse : $address", fontSize = 14.sp, color = Color.Gray)
                 Text("RSSI : $rssi dBm", fontSize = 14.sp, color = Color.Gray)
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(connectionStatus, fontSize = 14.sp, color = Color(0xFF000000))
-                Spacer(modifier = Modifier.height(32.dp))
+
                 Button(
                     onClick = onConnectClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFBAEC))
@@ -82,7 +87,7 @@ fun BluetoothControlScreen(
             } else {
                 Text("Let's shine", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFFFBAEC))
                 Spacer(modifier = Modifier.height(24.dp))
-                Text("Les Guirlandes", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -93,16 +98,22 @@ fun BluetoothControlScreen(
                         Button(
                             onClick = { onLedToggle(index) },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (isOn) color else Color.LightGray
+                                containerColor = if (isOn) color else Color.White
                             ),
                             modifier = Modifier
                                 .height(64.dp)
                                 .width(100.dp)
                         ) {
-                            Text("LED ${index + 1}", color = Color.White)
+                            Icon(
+                                imageVector = Icons.Filled.Lightbulb,  // Utilisation de l'icône lightbulb
+                                contentDescription = "LED ${index + 1}",
+                                tint = Color.Black,
+                                modifier = Modifier.fillMaxSize()  // Adapter la taille de l'icône à la taille du bouton
+                            )
                         }
                     }
                 }
+
                 Spacer(modifier = Modifier.height(8.dp))
                 Divider()
                 Spacer(modifier = Modifier.height(8.dp))
@@ -112,25 +123,31 @@ fun BluetoothControlScreen(
                         checked = isSubscribedButton3,
                         onCheckedChange = onSubscribeToggleButton3
                     )
-                    Text("Abonnement notif bouton 1")
+                    Text("Abonnez vous pour recevoir le nombre d'incrémentation du bouton 1")
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
                         checked = isSubscribedButton1,
                         onCheckedChange = onSubscribeToggleButton1
                     )
-                    Text("Abonnement notif bouton 3")
+                    Text("Abonnez vous pour recevoir le nombre d'incrémentation du bouton 3")
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
-                Text("Compteur bouton 1 : $counterButton3", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                Text("Compteur bouton 3 : $counterButton1", fontSize = 16.sp)
+                Text("Compteur bouton 1 : $counterButton1", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text("Compteur bouton 3 : $counterButton3", fontSize = 16.sp)
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = onResetCounter) {
-                    Text("Réinitialiser les compteurs")
+                Button(
+                    onClick = onResetCounter,
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFBAEC)) //
+                ) {
+                    Text("Réinitialiser les compteurs", color = Color.White) // Texte en blanc
                 }
+
             }
         }
     }
 }
+
+

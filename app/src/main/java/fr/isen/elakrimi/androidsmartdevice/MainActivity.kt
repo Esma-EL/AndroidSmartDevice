@@ -23,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fr.isen.elakrimi.androidsmartdevice.screen.ScanActivity
 import fr.isen.elakrimi.androidsmartdevice.ui.theme.AndroidSmartDeviceTheme
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +66,15 @@ fun FrontScreen() {
 
             Text(
                 text = "Scannez les appareils BLE à proximité",
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold // Texte en gras
+                ),
                 color = Color(0xFFFFBAEC), // Rose clair
-                modifier = Modifier.padding(horizontal = 8.dp)
+                modifier = Modifier
+                    .fillMaxWidth() // Prend toute la largeur
+                    .padding(horizontal = 8.dp),
+                textAlign = TextAlign.Center // Centre le texte horizontalement
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -97,7 +106,7 @@ fun FrontScreen() {
                 modifier = Modifier.padding(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFBAEC)) // Bouton rose clair
             ) {
-                Text(text = "Scan", color = Color.White)
+                Text(text = "Let's Scan", color = Color.White)
             }
         }
     }
