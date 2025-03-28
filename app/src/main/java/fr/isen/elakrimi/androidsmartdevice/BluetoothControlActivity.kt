@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import fr.isen.elakrimi.androidsmartdevice.ui.theme.AndroidSmartDeviceTheme
 
-
 class BluetoothControlActivity : ComponentActivity() {
 
     private var gatt: BluetoothGatt? = null
@@ -76,10 +75,49 @@ class BluetoothControlActivity : ComponentActivity() {
         gatt = device.connectGatt(this, false, object : BluetoothGattCallback() {
             override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
                 if (newState == BluetoothGatt.STATE_CONNECTED) {
-                    connectionState.value = " Connecté à $name"
+                    connectionState.value = "Connecté à $name"
                     gatt.discoverServices()
                 } else if (newState == BluetoothGatt.STATE_DISCONNECTED) {
-                    connectionState.value = " Déconnecté"
+                    connectionState.value = "Déconnecté"
+                }
+            }
+
+            override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
+                val service3 = gatt.services.getOrNull(2)
+                val service4 = gatt.services.getOrNull(3)
+
+                ledChar = service3?.characteristics?.getOrNull(0)
+                notifCharButton1 = service3?.characteristics?.getOrNull(1)
+                notifCharButton3 = service4?.characteristics?.getOrNull(0)
+
+                Log.d("BLE", "LED char = $ledChar")
+                Log.d("BLE", "Notif bouton 1 = $notifCharButton1")
+                Log.d("BLE", "Notif bouton 3 = $notifCharButton3")
+            }
+
+            override fun onCharacteristicChanged(gatt: BluetoothGatt, characteristic: BluetoothGattCharacteristic) {
+                when (characteristic) {
+                    notifCharButton1 -> {
+                        if (skipNextNotification1) {
+                            skipNextNotification1 = false
+                            Log.d("BLE", "Notification bouton 1 ignorée")
+                            return
+                        }
+                        val value = characteristic.value.firstOrNull()?.toInt() ?: return
+                        counterButton1.value = value
+                        Log.d("BLE", "Bouton 1 → compteur = $value")
+                    }
+
+                    notifCharButton3 -> {
+                        if (skipNextNotification3) {
+                            skipNextNotification3 = false
+                            Log.d("BLE", "Notification bouton 3 ignorée")
+                            return
+                        }
+                        val value = characteristic.value.firstOrNull()?.toInt() ?: return
+                        counterButton3.value = value
+                        Log.d("BLE", "Bouton 3 → compteur = $value")
+                    }
                 }
             }
         })
@@ -118,6 +156,17 @@ class BluetoothControlActivity : ComponentActivity() {
             BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE
 
         gatt?.writeDescriptor(descriptor)
+
+        when (characteristic) {
+            notifCharButton1 -> {
+                isSubscribedButton1.value = enable
+                if (enable) skipNextNotification1 = true
+            }
+            notifCharButton3 -> {
+                isSubscribedButton3.value = enable
+                if (enable) skipNextNotification3 = true
+            }
+        }
     }
 
     @SuppressLint("MissingPermission")

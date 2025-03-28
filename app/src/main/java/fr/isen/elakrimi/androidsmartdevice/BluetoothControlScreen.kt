@@ -50,7 +50,7 @@ fun BluetoothControlScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF1976D2),
+                    containerColor = Color(0xFFFFBAEC),
                     titleContentColor = Color.White
                 )
             )
@@ -80,9 +80,9 @@ fun BluetoothControlScreen(
                     Text("Se connecter", color = Color.White, fontSize = 16.sp)
                 }
             } else {
-                Text("Votre Sapin De Noël", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFFFBAEC))
+                Text("Let's shine", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFFFBAEC))
                 Spacer(modifier = Modifier.height(24.dp))
-                Text("Vos Guirlandes", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                Text("Les Guirlandes", fontSize = 16.sp, fontWeight = FontWeight.Medium)
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
