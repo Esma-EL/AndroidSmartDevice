@@ -27,12 +27,12 @@
         android:theme="@style/Theme.AndroidSmartDevice"
         tools:targetApi="31">
         <activity
-            android:name=".BluetoothControlActivity"
+            android:name=".Activity.BluetoothControlActivity"
             android:exported="false"
             android:label="@string/title_activity_bluetooth"
             android:theme="@style/Theme.AndroidSmartDevice" />
         <activity
-            android:name=".screen.ScanActivity"
+            android:name=".Activity.ScanActivity"
             android:exported="false"
             android:label="@string/title_activity_scan"
             android:theme="@style/Theme.AndroidSmartDevice" />

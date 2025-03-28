@@ -1,4 +1,4 @@
-package fr.isen.elakrimi.androidsmartdevice.screen
+package fr.isen.elakrimi.androidsmartdevice.Activity
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -22,8 +22,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import fr.isen.elakrimi.androidsmartdevice.ui.theme.AndroidSmartDeviceTheme
-import fr.isen.elakrimi.androidsmartdevice.BluetoothControlActivity
-
+import fr.isen.elakrimi.androidsmartdevice.screen.BLEDevice
+import fr.isen.elakrimi.androidsmartdevice.screen.ScanScreen
 
 
 class ScanActivity : ComponentActivity() {

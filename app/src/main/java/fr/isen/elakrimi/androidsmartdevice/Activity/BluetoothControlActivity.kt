@@ -1,4 +1,4 @@
-package fr.isen.elakrimi.androidsmartdevice
+package fr.isen.elakrimi.androidsmartdevice.Activity
 
 import android.annotation.SuppressLint
 import android.bluetooth.*
@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import fr.isen.elakrimi.androidsmartdevice.ui.theme.AndroidSmartDeviceTheme
+import fr.isen.elakrimi.androidsmartdevice.screen.BluetoothControlScreen
 
 class BluetoothControlActivity : ComponentActivity() {
 

@@ -1,4 +1,4 @@
-package fr.isen.elakrimi.androidsmartdevice
+package fr.isen.elakrimi.androidsmartdevice.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,8 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material3.Icon
 
@@ -42,9 +40,9 @@ fun BluetoothControlScreen(
 ) {
     val backgroundColor = Color(0xFFFBF6E4)
     val ledColors = listOf(
-        Color(0xFF1976D2), // LED 1 - Bleu
-        Color(0xFF4CAF50), // LED 2 - Vert
-        Color(0xFFF44336)  // LED 3 - Rouge
+        Color(0xFF1976D2), // LED 1
+        Color(0xFF4CAF50), // LED 2
+        Color(0xFFF44336)  // LED 3
     )
 
     Scaffold(
@@ -74,15 +72,15 @@ fun BluetoothControlScreen(
             if (!isConnected) {
                 Text("Périphérique détecté", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFFFFBAEC))
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Nom : $name", fontSize = 16.sp)
-                Text("Adresse : $address", fontSize = 14.sp, color = Color.Gray)
-                Text("RSSI : $rssi dBm", fontSize = 14.sp, color = Color.Gray)
+                Text("Nom : $name", fontSize = 16.sp, color = Color.Black)
+                Text("Adresse : $address", fontSize = 14.sp, color = Color.Black)
+                Text("RSSI : $rssi dBm", fontSize = 14.sp, color = Color.Black)
 
                 Button(
                     onClick = onConnectClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFBAEC))
                 ) {
-                    Text("Se connecter", color = Color.White, fontSize = 16.sp)
+                    Text("Se connecter", color = Color.White, fontSize = 30.sp)
                 }
             } else {
                 Text("Let's shine", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFFFBAEC))
@@ -94,7 +92,7 @@ fun BluetoothControlScreen(
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     ledStates.forEachIndexed { index, isOn ->
-                        val color = ledColors.getOrNull(index) ?: Color.Gray
+                        val color = ledColors.getOrNull(index) ?: Color.Black
                         Button(
                             onClick = { onLedToggle(index) },
                             colors = ButtonDefaults.buttonColors(
@@ -105,10 +103,10 @@ fun BluetoothControlScreen(
                                 .width(100.dp)
                         ) {
                             Icon(
-                                imageVector = Icons.Filled.Lightbulb,  // Utilisation de l'icône lightbulb
+                                imageVector = Icons.Filled.Lightbulb,  // pour les icônes
                                 contentDescription = "LED ${index + 1}",
                                 tint = Color.Black,
-                                modifier = Modifier.fillMaxSize()  // Adapter la taille de l'icône à la taille du bouton
+                                modifier = Modifier.fillMaxSize()  //
                             )
                         }
                     }
@@ -123,19 +121,25 @@ fun BluetoothControlScreen(
                         checked = isSubscribedButton3,
                         onCheckedChange = onSubscribeToggleButton3
                     )
-                    Text("Abonnez vous pour recevoir le nombre d'incrémentation du bouton 1")
+                    Text("Abonnez vous pour recevoir le nombre d'incrémentation du bouton 1", color = Color(0xFF000000))
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
                         checked = isSubscribedButton1,
                         onCheckedChange = onSubscribeToggleButton1
                     )
-                    Text("Abonnez vous pour recevoir le nombre d'incrémentation du bouton 3")
+                    Text("Abonnez vous pour recevoir le nombre d'incrémentation du bouton 3", color = Color(0xFF000000))
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
-                Text("Compteur bouton 1 : $counterButton1", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                Text("Compteur bouton 3 : $counterButton3", fontSize = 16.sp)
+                Text("Compteur bouton 1 : $counterButton1", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(
+                    0xFF000000
+                )
+                )
+                Text("Compteur bouton 3 : $counterButton3", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(
+                    0xFF000000
+                )
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
