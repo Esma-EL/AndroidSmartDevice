@@ -51,12 +51,12 @@ fun BluetoothControlScreen(
                 title = { Text("AndroidSmartDevice") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "Retour", tint = Color.White)
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Retour", tint = Color.Black)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFFFFBAEC),
-                    titleContentColor = Color.White
+                    titleContentColor = Color.Black
                 )
             )
         }
@@ -66,7 +66,7 @@ fun BluetoothControlScreen(
                 .padding(innerPadding)
                 .fillMaxSize()
                 .background(backgroundColor)
-                .padding(16.dp),
+                .padding(25.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (!isConnected) {
@@ -80,7 +80,7 @@ fun BluetoothControlScreen(
                     onClick = onConnectClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFBAEC))
                 ) {
-                    Text("Se connecter", color = Color.White, fontSize = 30.sp)
+                    Text("Se connecter", color = Color.White, fontSize = 25.sp)
                 }
             } else {
                 Text("Let's shine", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFFFBAEC))
@@ -112,9 +112,7 @@ fun BluetoothControlScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
-                Divider()
-                Spacer(modifier = Modifier.height(8.dp))
+
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
